@@ -82,7 +82,8 @@ function doEncrypt(password,plaintext) {
         };
 
   ct = sjcl.encrypt(password, plaintext, p, rp);
-  var res = "OK&Encrypt&" + myUriEncode(JSON.stringify(ct));
+  var res = "OK&Encrypt&";
+	res = res + myUriEncode(JSON.stringify(ct));
   return res;
 }
 
@@ -95,17 +96,16 @@ function doDecrypt(password, ciphertext) {
     try {
       outstring = sjcl.decrypt(password, ciphertext, {}, rp);
     } catch(e) {
-      outstring= "Can't decrypt: " + e ;
-      var res = ["NOK", outstring];
-      return res;
+      outstring= "NOK&Decrypt&Can't decrypt: " + e ;
+      return outstring;
     }
-    var res = ["OK", outstring];
+    var res = "OK&Decrypt&";
+    res = res + myUriEncode(outstring);
     return res;
     
   } else {
-	    outstring = "It's not jsonized";
-	    var res = ["NOK", outstring];
-	    return res;
+	    outstring = "NOK&Decrypt&It's not jsonized";
+	    return outstring;
     }
 }
    
@@ -141,9 +141,8 @@ function doDecrypt(password, ciphertext) {
 	
         } else if (command == "Decrypt") {
             result = doDecrypt(password,data);
-	    result.append(command);
         } else {
-            result = ["NOK", "Unknown command", command];
+            result = "NOK&" + command + "&Unknown Command";
         }
         // Response formatting
 		
