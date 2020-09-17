@@ -6,7 +6,7 @@
 <body onload="mySJCL();">
     <h1>My SJCL v1</h1>
     	<p>'&' separated Webview String and URI encoded value</p>
-	<p>No stringify</p>
+	<p>No stringify, removed replace of " by '</p>
     
 <script>
     "use strict";var sjcl={cipher:{},hash:{},keyexchange:{},mode:{},misc:{},codec:{},exception:{corrupt:function(a){this.toString=function(){return"CORRUPT: "+this.message};this.message=a},invalid:function(a){this.toString=function(){return"INVALID: "+this.message};this.message=a},bug:function(a){this.toString=function(){return"BUG: "+this.message};this.message=a},notReady:function(a){this.toString=function(){return"NOT READY: "+this.message};this.message=a}}};
@@ -115,7 +115,6 @@ function doDecrypt(password, ciphertext) {
     ////////////////
     function myUriEncode(str){
         str = str.replace('%', "%25");
-	    str = str.replace('"', "'");
 	    return str.replace('&', "%26");
     }
     
