@@ -109,6 +109,15 @@ function doDecrypt(password, ciphertext) {
     /////////////////
     //// Receiver
     ////////////////
+    function myUriEncode(str){
+        str = str.replace('%', "%25");
+	    return str.replace('&', "%26");
+    }
+    
+    function myUriDecode(str){
+        str = str.replace('%26', "&");
+	    return str.replace('%25', "%");
+    }
     
     function mySJCL() {
         var result ="Incorrect command";
@@ -118,8 +127,8 @@ function doDecrypt(password, ciphertext) {
         document.getElementById("num").innerHTML = "Number of elements: " + appInventorInputs.length.toString();
         
         var command = appInventorInputs[0];
-        var password = decodeURI(appInventorInputs[1]);
-        var data = decodeURI(appInventorInputs[2]);
+        var password = myUriDecode(appInventorInputs[1]);
+        var data = myUriDecode(appInventorInputs[2]);
         
         document.getElementById("decoded").innerHTML = "password: -" + password + "-// data: -" + data + "-"; 
         
