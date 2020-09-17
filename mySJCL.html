@@ -5,6 +5,7 @@
 
 <body onload="mySJCL();">
     <h1>My SJCL v1</h1>
+    <p>'&' separated Webview String and URI encoded value</p>
     
 <script>
     "use strict";var sjcl={cipher:{},hash:{},keyexchange:{},mode:{},misc:{},codec:{},exception:{corrupt:function(a){this.toString=function(){return"CORRUPT: "+this.message};this.message=a},invalid:function(a){this.toString=function(){return"INVALID: "+this.message};this.message=a},bug:function(a){this.toString=function(){return"BUG: "+this.message};this.message=a},notReady:function(a){this.toString=function(){return"NOT READY: "+this.message};this.message=a}}};
@@ -111,13 +112,15 @@ function doDecrypt(password, ciphertext) {
     
     function mySJCL() {
         var result ="Incorrect command";
-        var appInventorInputs = window.AppInventor.getWebViewString().split(",");
+        var appInventorInputs = window.AppInventor.getWebViewString().split("&");
         
         document.getElementById("func").innerHTML = "-" + appInventorInputs[0] + "-";
         document.getElementById("pwd").innerHTML =  "-" + appInventorInputs[1] + "-";
         document.getElementById("data").innerHTML = "-" + appInventorInputs[2] + "-";
         
-        var command = appInventorInputs[0];
+        var command = decodeURI(appInventorInputs[0]);
+        var password = decodeURI(appInventorInputs[1]);
+        var data = decodeURI(appInventorInputs[2]);
         // Codes here
         if (command == "Encrypt") {
             result = doEncrypt(appInventorInputs[1],appInventorInputs[2]);
