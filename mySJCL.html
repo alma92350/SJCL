@@ -118,17 +118,17 @@ function doDecrypt(password, ciphertext) {
         document.getElementById("pwd").innerHTML =  "-" + appInventorInputs[1] + "-";
         document.getElementById("data").innerHTML = "-" + appInventorInputs[2] + "-";
         
-        var command = decodeURI(appInventorInputs[0]);
+        var command = appInventorInputs[0];
         var password = decodeURI(appInventorInputs[1]);
         var data = decodeURI(appInventorInputs[2]);
         // Codes here
         if (command == "Encrypt") {
-            result = doEncrypt(appInventorInputs[1],appInventorInputs[2]);
+            result = doEncrypt(password,data);
             
         } else if (command == "Decrypt") {
-            result = doDecrypt(appInventorInputs[1],appInventorInputs[2]);
+            result = doDecrypt(password,data);
         } else {
-            result = "Error command: " + appInventorInputs[0];
+            result = "Error command: " + command;
         }
         
         // result sent back to App Inventor
