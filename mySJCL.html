@@ -82,7 +82,7 @@ function doEncrypt(password,plaintext) {
         };
 
   ct = sjcl.encrypt(password, plaintext, p, rp);
-  var res = "OK&Encrypt&" + myUriEncode(ct);
+  var res = "OK&Encrypt&" + myUriEncode(JSON.stringify(ct));
   return res;
 }
 
