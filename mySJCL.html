@@ -138,7 +138,6 @@ function doDecrypt(password, ciphertext) {
         // Codes here
         if (command == "Encrypt") {
             result = doEncrypt(password,data);
-            result.append(command);
 	
         } else if (command == "Decrypt") {
             result = doDecrypt(password,data);
@@ -147,13 +146,10 @@ function doDecrypt(password, ciphertext) {
             result = ["NOK", "Unknown command", command];
         }
         // Response formatting
-	var response = "";
-	var encResp = myUriEncode(result[1]);
-	response = result[0] + '&' + encResp + '&' + result[2];
-	
+		
         // result sent back to App Inventor
-        window.AppInventor.setWebViewString( response );
-        document.getElementById("res").innerHTML = "-" + response + "-";
+        window.AppInventor.setWebViewString( result );
+        document.getElementById("res").innerHTML = "-" + result + "-";
     }
 </script>
     <p id="uri"></p>
