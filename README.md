@@ -1,9 +1,9 @@
 # mySJCL.github.io
 
-The objective is to allow an AppInventot 2 application to perform strong cryptogaphic processing using the Standford SJCL.js library locally.
+The objective is to allow an AppInventor 2 applications to perform strong cryptogaphic processing using the Standford SJCL.js library locally.
 The challenges were:
-  1-integrate the sjcl.js library in a local html file
-  2-develop the interface of communication between the APPInv2 and the sjcl wrapper using the webViewString feature
+  1-To integrate the sjcl.js library in a local html file
+  2-To develop the interface of communication between the APPInv2 and the sjcl wrapper using the webViewString feature
 
 In order to streamline the development of the HTML file, the SJCL Html file was put on a github server. This avoided numerous upload to the application.
 
