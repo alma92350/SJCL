@@ -82,8 +82,8 @@ function doEncrypt(password,plaintext) {
         };
 
   ct = sjcl.encrypt(password, plaintext, p, rp);
-
-  return ["OK", ct];
+  var res = ["OK", ct];
+  return res;
 }
 
 /* Decrypt a message */
@@ -96,13 +96,16 @@ function doDecrypt(password, ciphertext) {
       outstring = sjcl.decrypt(password, ciphertext, {}, rp);
     } catch(e) {
       outstring= "Can't decrypt: " + e ;
-      return ["NOK", outstring] ;
+      var res = ["NOK", outstring];
+      return res;
     }
-    return ["OK", outstring];
+    var res = ["OK", outstring];
+    return res;
     
   } else {
-    outstring = "It's not jsonized";
-    return ["NOK", outstring];
+	    outstring = "It's not jsonized";
+	    var res = ["NOK", outstring];
+	    return res;
     }
 }
    
@@ -145,7 +148,8 @@ function doDecrypt(password, ciphertext) {
         }
         // Response formatting
 	var response = "";
-	response = result[0] + '&' + myUriEncode(result[1]) + '&' + result[2];
+	var encResp = myUriEncode(result[1]);
+	response = result[0] + '&' + encResp + '&' + result[2];
 	
         // result sent back to App Inventor
         window.AppInventor.setWebViewString( response );
