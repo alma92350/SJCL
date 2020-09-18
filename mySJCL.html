@@ -150,6 +150,13 @@ function doDecrypt(password, ciphertext) {
         window.AppInventor.setWebViewString( result );
         document.getElementById("res").innerHTML = "-" + result + "-";
     }
+function clear(){
+	document.getElementById("top").innerHTML = "";
+	document.getElementById("uri").innerHTML = "";
+	document.getElementById("num").innerHTML = "";
+	document.getElementById("decoded").innerHTML = "";
+	document.getElementById("res").innerHTML = "";
+}
 </script>
     <p id="uri"></p>
     <p id="num"></p>
