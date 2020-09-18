@@ -1,0 +1,106 @@
+<!doctype html>
+<head>
+  <title>My SJCL Wrapper</title>
+  <script type="text/javascript" src="sjcl.js"></script>
+</head>
+<body>
+    <h1>My SJCL v2</h1>
+    	<p id="top"></p>
+    
+<script>
+
+/* Encrypt a message */
+function doEncrypt(password,plaintext) {
+  var rp = {}, ct, p;
+  
+  p = { //adata:"",
+        //iter:10000,
+        //mode:"ccm",
+        ts:64,
+        ks:256
+        };
+
+  ct = sjcl.encrypt(password, plaintext, p, rp);
+  var res = "OK&Encrypt&";
+	res = res + myUriEncode(ct); //(JSON.stringify(ct));
+  return res;
+}
+
+/* Decrypt a message */
+function doDecrypt(password, ciphertext) {
+  var aes, rp = {}, outstring="";
+
+  if (ciphertext.match("{")) {
+    /* it's jsonized */
+    try {
+      outstring = sjcl.decrypt(password, ciphertext, {}, rp);
+    } catch(e) {
+      outstring= "NOK&Decrypt&Can't decrypt: " + e ;
+      return outstring;
+    }
+    var res = "OK&Decrypt&";
+    res = res + myUriEncode(outstring);
+    return res;
+    
+  } else {
+	    outstring = "NOK&Decrypt&It's not jsonized";
+	    return outstring;
+    }
+}
+   
+    /////////////////
+    //// Receiver
+    ////////////////
+    function myUriEncode(str){
+        str = str.replace('%', "%25");
+	    return str.replace('&', "%26");
+    }
+    
+    function myUriDecode(str){
+        str = str.replace('%26', "&");
+	    return str.replace('%25', "%");
+    }
+    
+    function mySJCL() {
+        var result ="Incorrect command";
+        var appInventorInputs = window.AppInventor.getWebViewString().split("&");
+        
+        document.getElementById("uri").innerHTML = "-" + appInventorInputs[0] + "-//-" + appInventorInputs[1] + "-//-" + appInventorInputs[2] + "-";
+        document.getElementById("num").innerHTML = "Number of elements: " + appInventorInputs.length.toString();
+        
+        var command = appInventorInputs[0];
+        var password = myUriDecode(appInventorInputs[1]);
+        var data = myUriDecode(appInventorInputs[2]);
+        
+        document.getElementById("decoded").innerHTML = "password: -" + password + "-// data: -" + data + "-"; 
+        
+        // Codes here
+        if (command == "Encrypt") {
+            result = doEncrypt(password,data);
+	
+        } else if (command == "Decrypt") {
+            result = doDecrypt(password,data);
+        } else {
+            result = "NOK&" + command + "&Unknown Command";
+        }
+        // Response formatting
+		
+        // result sent back to App Inventor
+        window.AppInventor.setWebViewString( result );
+        document.getElementById("res").innerHTML = "-" + result + "-";
+    }
+function clear(){
+	document.getElementById("top").innerHTML = "";
+	document.getElementById("uri").innerHTML = "";
+	document.getElementById("num").innerHTML = "";
+	document.getElementById("decoded").innerHTML = "";
+	document.getElementById("res").innerHTML = "";
+}
+</script>
+    <p id="uri"></p>
+    <p id="num"></p>
+    <p id="decoded"></p>
+    <p id="res"></p>
+    
+</body>
+</html>
