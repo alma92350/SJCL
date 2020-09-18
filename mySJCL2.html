@@ -60,6 +60,33 @@ function doDecrypt(password, ciphertext) {
 function clear(){
 	document.getElementById("top").innerHTML = "";
 }
+	
+function doEncrypt2(){
+	var appInventorInputs = window.AppInventor.getWebViewString();
+	var parameter, ct;
+	try {
+		parameter = JSON.parse(appInventorInputs);
+		ct = doEncrypt(parameter.psw,parameter.data);
+		window.AppInventor.setWebViewString(ct);
+	} catch(e) {
+		var resp =  "Error parsing the WebView string" + e;
+		window.AppInventor.setWebViewString(resp);
+	}
+}
+	
+function doDecrypt2(){
+	var appInventorInputs = window.AppInventor.getWebViewString();
+	var parameter, outstring;
+	try {
+		parameter = JSON.parse(appInventorInputs);
+		outstring = doDecrypt(parameter.psw,parameter.data);
+		window.AppInventor.setWebViewString(outstring);
+	} catch(e) {
+		var resp = "Error: " + e;
+		window.AppInventor.setWebViewString(resp);
+	}
+}
+	
 </script>
     
 </body>
