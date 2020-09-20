@@ -3,7 +3,7 @@
   <title>My SJCL Wrapper v2</title>
   <script type="text/javascript" src="sjcl.js"></script>
 </head>
-<body>
+<body onload="mySJCL();">
     	<p id="top"></p>
 	<br>
     
@@ -99,6 +99,10 @@ function debug(){
 		window.AppInventor.setWebViewString(resp);
 	}
 	
+}
+	
+function mySJCL() {
+	window.AppInventor.setWebViewString("ready");
 }
 	
 </script>
