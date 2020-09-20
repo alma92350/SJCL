@@ -113,19 +113,21 @@ function doEncrypt3(){
 		parameter = JSON.parse(appInventorInputs);
 		ct = doEncrypt(parameter.psw,parameter.data);
 		resp = {
-			"result": ct,
-			"command": "encrypt",
-			"status": "ok"
+			result: ct,
+			command: "encrypt",
+			status: "ok"
 		};
-		window.AppInventor.setWebViewString(JSON.stringify(resp));
+		window.AppInventor.setWebViewString(resp) ; 
+		//window.AppInventor.setWebViewString(JSON.stringify(resp));
 	} catch(e) {
 		var err = "Error parsing the WebView string: " + e;
 		resp = {
-			"result": err,
-			"command": "encrypt",
-			"status": "nok"
+			result: err,
+			command: "encrypt",
+			status: "nok"
 		};			
-		window.AppInventor.setWebViewString(JSON.stringify(resp));
+		window.AppInventor.setWebViewString(resp) ; 
+		//window.AppInventor.setWebViewString(JSON.stringify(resp));
 	}
 }
 
