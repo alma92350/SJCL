@@ -117,8 +117,8 @@ function doEncrypt3(){
 			command: "encrypt",
 			status: "ok"
 		};
-		window.AppInventor.setWebViewString(resp) ; 
-		//window.AppInventor.setWebViewString(JSON.stringify(resp));
+		//window.AppInventor.setWebViewString(resp) ; 
+		window.AppInventor.setWebViewString(JSON.stringify(resp));
 	} catch(e) {
 		var err = "Error parsing the WebView string: " + e;
 		resp = {
@@ -126,8 +126,8 @@ function doEncrypt3(){
 			command: "encrypt",
 			status: "nok"
 		};			
-		window.AppInventor.setWebViewString(resp) ; 
-		//window.AppInventor.setWebViewString(JSON.stringify(resp));
+		//window.AppInventor.setWebViewString(resp) ; 
+		window.AppInventor.setWebViewString(JSON.stringify(resp));
 	}
 }
 
