@@ -111,7 +111,7 @@ function doEncrypt3(){
 	var parameter, ct, resp;
 	try {
 		parameter = JSON.parse(appInventorInputs);
-		ct = doEncrypt(parameter.psw,parameter.data);
+		ct = JSON.parse(doEncrypt(parameter.psw,parameter.data));
 		resp = {
 			result: ct,
 			command: "encrypt",
