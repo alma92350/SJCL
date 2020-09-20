@@ -86,6 +86,20 @@ function doDecrypt2(){
 		window.AppInventor.setWebViewString(resp);
 	}
 }
+
+function debug(){
+	var appInventorInputs = window.AppInventor.getWebViewString();
+	var parameter, outstring;
+	try {
+		parameter = JSON.parse(appInventorInputs);
+		outstring = "Debug result: got the input: " + parameter.input;
+		window.AppInventor.setWebViewString(outstring);
+	} catch(e) {
+		var resp = "Error: " + e;
+		window.AppInventor.setWebViewString(resp);
+	}
+	
+}
 	
 </script>
     
