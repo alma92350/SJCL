@@ -43,7 +43,8 @@ function doDecrypt(password, ciphertext) {
 	    return outstring;
     }
 }
-   
+
+	
     /////////////////
     //// Receiver
     ////////////////
@@ -103,6 +104,79 @@ function debug(){
 	
 function mySJCL() {
 	window.AppInventor.setWebViewString("ready");
+}
+	
+function doEncrypt3(){
+	var appInventorInputs = window.AppInventor.getWebViewString();
+	var parameter, ct, resp;
+	try {
+		parameter = JSON.parse(appInventorInputs);
+		ct = doEncrypt(parameter.psw,parameter.data);
+		resp = {
+			"result": ct,
+			"command": "encrypt",
+			"status": "ok"
+		};
+		window.AppInventor.setWebViewString(resp);
+	} catch(e) {
+		var err = "Error parsing the WebView string: " + e;
+		resp = {
+			"result": err,
+			"command": "encrypt",
+			"status": "nok"
+		};			
+		window.AppInventor.setWebViewString(resp);
+	}
+}
+
+function doDecrypt3(){
+	var appInventorInputs = window.AppInventor.getWebViewString();
+	var parameter, outstring="", resp, rp={};
+	
+	/// try parse the input string
+	try {
+		parameter = JSON.parse(appInventorInputs);
+	} catch(e) {
+		resp = {
+			"result": "unable to parse WebViewString",
+			"command": "decrypt",
+			"status": "nok"
+		};
+		window.AppInventor.setWebViewString(resp);
+		return;
+	}
+	/// Check if input is json string
+	if (parameter.data.match("{")) {
+		// try to decrypt
+		try {
+			outstring = sjcl.decrypt(parameter.psw,parameter.data, {}, rp);
+			resp = {
+				"result": outstring,
+				"command": "decrypt",
+				"status": "ok"
+			};
+			window.AppInventor.setWebViewString(resp);
+			return;
+		} catch (e) {
+			outstring= "Can't decrypt: " + e ;
+			resp = {
+				"result": outstring,
+				"command": "decrypt",
+				"status": "nok"
+			};
+			window.AppInventor.setWebViewString(resp);
+			return;
+		}
+	} else { 
+		// it is not a json string
+		resp = {
+			"result": "data is not a json string",
+			"command": "decrypt",
+			"status": "nok"
+		};
+		window.AppInventor.setWebViewString(resp);
+		return;
+	}
 }
 	
 </script>
