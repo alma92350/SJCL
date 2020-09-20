@@ -113,20 +113,18 @@ function doEncrypt3(){
 		parameter = JSON.parse(appInventorInputs);
 		ct = JSON.parse(doEncrypt(parameter.psw,parameter.data));
 		resp = {
-			result: ct,
+			status: "ok",
 			command: "encrypt",
-			status: "ok"
+			result: ct,
 		};
-		//window.AppInventor.setWebViewString(resp) ; 
 		window.AppInventor.setWebViewString(JSON.stringify(resp));
 	} catch(e) {
 		var err = "Error parsing the WebView string: " + e;
 		resp = {
-			result: err,
+			status: "nok",
 			command: "encrypt",
-			status: "nok"
+			result: err,
 		};			
-		//window.AppInventor.setWebViewString(resp) ; 
 		window.AppInventor.setWebViewString(JSON.stringify(resp));
 	}
 }
@@ -140,11 +138,11 @@ function doDecrypt3(){
 		parameter = JSON.parse(appInventorInputs);
 	} catch(e) {
 		resp = {
-			"result": "unable to parse WebViewString",
+			"status": "nok",
 			"command": "decrypt",
-			"status": "nok"
+			"result": "unable to parse WebViewString",
 		};
-		window.AppInventor.setWebViewString(resp);
+		window.AppInventor.setWebViewString(JSON.stringify(resp));
 		return;
 	}
 	/// Check if input is json string
@@ -153,11 +151,11 @@ function doDecrypt3(){
 		try {
 			outstring = sjcl.decrypt(parameter.psw,parameter.data, {}, rp);
 			resp = {
-				"result": outstring,
+				"status": "ok",
 				"command": "decrypt",
-				"status": "ok"
+				"result": outstring,
 			};
-			window.AppInventor.setWebViewString(resp);
+			window.AppInventor.setWebViewString(JSON.stringify(resp));
 			return;
 		} catch (e) {
 			outstring= "Can't decrypt: " + e ;
@@ -166,7 +164,7 @@ function doDecrypt3(){
 				"command": "decrypt",
 				"status": "nok"
 			};
-			window.AppInventor.setWebViewString(resp);
+			window.AppInventor.setWebViewString(JSON.stringify(resp));
 			return;
 		}
 	} else { 
@@ -176,7 +174,7 @@ function doDecrypt3(){
 			"command": "decrypt",
 			"status": "nok"
 		};
-		window.AppInventor.setWebViewString(resp);
+		window.AppInventor.setWebViewString(JSON.stringify(resp));
 		return;
 	}
 }
