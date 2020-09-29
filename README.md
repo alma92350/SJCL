@@ -1,4 +1,4 @@
-# mySJCL.github.io
+# https://alma92350.github.io/SJCL/
 
 The objective is to allow an AppInventor 2 applications to perform strong cryptogaphic processing using the Standford SJCL.js library locally.
 The challenges were:
